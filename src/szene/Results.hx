@@ -32,13 +32,17 @@ class Results {
 		Text.size=GUI.titleTextSize;
 		Text.display(Text.CENTER,10,S("5 Runden Herausforderung","5 Lap Challange"), PAL.titelFarbe);
 
+		var t = S("ZEIT ","TIME ");
+		var hs = S("HIGH ","HIGH ");
+		var nhs = S("!!NEUER HIGHSCORE!!","!!NEW HIGH SCORE!!");
+		
 		Text.size=GUI.titleTextSize/2;
 		if (newHigh){
-			Text.display(Text.CENTER,10+GUI.titleTextSize+50,"TIME "+Math.floor(Track.time),Col.YELLOW);
-			Text.display(Text.CENTER,10+GUI.titleTextSize+80,"!!NEW HIGH SCORE!!",Col.YELLOW);
+			Text.display(Text.CENTER,10+GUI.titleTextSize+50,t+Math.floor(Track.time),Col.YELLOW);
+			Text.display(Text.CENTER,10+GUI.titleTextSize+80,nhs,Col.YELLOW);
 		} else {
 			Text.display(Text.CENTER,10+GUI.titleTextSize+50,"TIME "+Math.floor(Track.time));
-			Text.display(Text.CENTER,10+GUI.titleTextSize+80,"HIGH "+Math.floor(high));
+			Text.display(Text.CENTER,10+GUI.titleTextSize+80,hs+Math.floor(high));
 		}
 		
 		if (IMGUI.button( Text.CENTER,Math.round(h/2)+80,S("Titelbildschirm","Title Screen"))){

@@ -94,11 +94,11 @@ class Track {
 		lap=0;
 		stage=0;
 		olda=0;
-		trackName = tracks[state.track][0];
 		Gfx.imagealpha=1;
-
+		
 		Gfx.createimage("front",320,240);
 		Gfx.drawtoimage("front");
+		Gfx.clearscreen(Col.BLACK);
 		Gfx.drawimage(0,0,"track1");
 		Gfx.drawtoscreen();
 
@@ -111,6 +111,12 @@ class Track {
 		vy = 0;
 
 		firstTurn=true;
+
+
+		Gfx.createimage(altName,Gfx.screenwidth,Gfx.screenheight);
+		Gfx.drawtoimage(altName);
+		Gfx.clearscreen(Col.WHITE);
+		Gfx.drawtoscreen();
 	}
 
 	function Recalculate(){
@@ -138,15 +144,28 @@ class Track {
 				bufferArray[i][j]=1;
 			}
 		}	
+		
 	}
 	
-	function DoFirst() {
+	public function DoFirst() {
+
+		anythingpressed=false;
+		time=0;
+		lap=0;
+		stage=0;
+		olda=0;
+		trackName = "front";
+		Gfx.imagealpha=1;
+
+		px = tracks[state.track][1];
+		py = tracks[state.track][2];
+		vx = 0;
+		vy = 0;
+
+
+		lap=0;
 		imageArray = [];
 		bufferArray = [];
-		Gfx.createimage(altName,Gfx.screenwidth,Gfx.screenheight);
-		Gfx.drawtoimage(altName);
-		Gfx.clearscreen(Col.WHITE);
-		Gfx.drawtoscreen();
 
 
 		var bmd = Gfx.bmds["track1"];
@@ -320,6 +339,10 @@ class Track {
 						lap++;
 						if (lap==5){
 							Scene.change(szene.Results);
+							firstTurn=true;
+							var oldtime=time;
+							init();
+							time=oldtime;
 						}
 
 						#if js
@@ -350,7 +373,9 @@ class Track {
 		Gfx.fillbox(0,0,Gfx.screenwidth,20,Col.BLACK);
 		
 		Text.size=15;
-		Text.display(0,-2,"   Lap " +(lap+1)+"/5     Time : " + Math.floor(time),Col.WHITE,1.0);
+		var s1 = S("   Runde ", "   Lap ");
+		var s2 = S("/5     Zeit : ", "/5     Time : ");
+		Text.display(0,-2,s1 +(lap+1)+s2 + Math.floor(time),Col.WHITE,1.0);
 		//Gfx.fillbox(ox-2,oy-2,2,2,0xff0000,1);
 		//Gfx.fillbox(tx-2,ty-2,2,2,0xff0000,1);
 	}
